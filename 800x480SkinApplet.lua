@@ -1,7 +1,7 @@
 --[[
 =head1 NAME
 
-applets.WQVGAsmallSkin.WQVGAsmallSkinApplet
+applets.800x480Skin.800x480SkinApplet
 
 =head1 DESCRIPTION
 
@@ -39,7 +39,7 @@ local table                  = require("jive.utils.table")
 local debug                  = require("jive.utils.debug")
 local autotable              = require("jive.utils.autotable")
 
-local log                    = require("jive.utils.log").logger("applet.WQVGAsmallSkin")
+local log                    = require("jive.utils.log").logger("applet.800x480Skin")
 
 local EVENT_ACTION           = jive.ui.EVENT_ACTION
 local EVENT_CONSUME          = jive.ui.EVENT_CONSUME
@@ -66,7 +66,7 @@ oo.class(_M, Applet)
 
 
 -- Define useful variables for this skin
-local imgpath = "applets/WQVGAsmallSkin/images/"
+local imgpath = "applets/800x480Skin/images/"
 local fontpath = "fonts/"
 local FONT_NAME = "FreeSans"
 local BOLD_PREFIX = "Bold"
@@ -92,8 +92,8 @@ function param(self)
 		NOWPLAYING_TRACKINFO_LINES = 3,
 		POPUP_THUMB_SIZE = 100,
 		radialClock = {
-			hourTickPath     = 'applets/WQVGAsmallSkin/images/Clocks/Radial/radial_ticks_hr_on.png',
-			minuteTickPath   = 'applets/WQVGAsmallSkin/images/Clocks/Radial/radial_ticks_min_on.png',
+			hourTickPath     = 'applets/800x480Skin/images/Clocks/Radial/radial_ticks_hr_on.png',
+			minuteTickPath   = 'applets/800x480Skin/images/Clocks/Radial/radial_ticks_min_on.png',
 		},
 		nowPlayingScreenStyles = { 
 			-- every skin needs to start off with a nowplaying style

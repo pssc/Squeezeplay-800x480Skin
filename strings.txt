@@ -2,12 +2,12 @@
 # The two letter codes are defined by ISO 639-1
 # http://en.wikipedia.org/wiki/List_of_ISO_639_codes
 
-WQVGA_SMALL_SKIN
+800x480_SMALL_SKIN
 # SLT: WQVGA refers to the "wide quarter VGA" resolution of the display
 	CS	WQVGA skin malého písma
 	DA	WQVGA-tema med små bogstaver
 	DE	WQVGA-Skin – Kleine Schrift
-	EN	WQVGA Small Print Skin
+	EN	800x480 Small Print Skin
 	ES	Máscara con letra pequeña WQVGA
 	FI	Pieni WQVGA-tulostuspinta
 	FR	Habillage à petits caractères WQVGA

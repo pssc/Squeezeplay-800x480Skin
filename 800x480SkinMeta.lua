@@ -2,11 +2,11 @@
 --[[
 =head1 NAME
 
-applets.WQVGAsmallSkin.WQVGAsmallSkinMeta 
+applets.800x480Skin.800x480SkinMeta 
 
 =head1 DESCRIPTION
 
-See L<applets.WQVGAsmallSkin.WQVGAsmallSkinApplet>.
+See L<applets.800x480Skin.800x480SkinApplet>.
 
 =head1 FUNCTIONS
 
@@ -37,7 +37,7 @@ function defaultSettings(self)
 end
 
 function registerApplet(self)
-	jiveMain:registerSkin(self:string("WQVGA_SMALL_SKIN"), "WQVGAsmallSkin", "skin")
+	jiveMain:registerSkin(self:string("800x480_SMALL_SKIN"), "800x480Skin", "skin")
 end
 
 
