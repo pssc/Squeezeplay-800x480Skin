@@ -59,6 +59,7 @@ local WH_FILL                = jive.ui.WH_FILL
 
 local jiveMain               = jiveMain
 local appletManager          = appletManager
+local Keyboard		     = require("jive.ui.Keyboard")
 
 
 module(..., Framework.constants)
@@ -244,9 +245,18 @@ end
 -- skin
 -- The meta arranges for this to be called to skin the interface.
 function skin(self, s)
-	Framework:setVideoMode(800, 480, 0, true)
+	Framework:setVideoMode(800, 480, 0, false)
 
 	local screenWidth, screenHeight = Framework:getScreenSize()
+
+	-- Scale keyboard as it does its own layout for keys as it by passes any style bounds set in the skin
+	if Keyboard.setDefault then
+		Keyboard.setDefault("width",78)
+		Keyboard.setDefault("height",83)
+		-- Keyboard.setDefault("width_large",156)
+	else
+		log:warn(self,"Keyboard resizing not available please upgrade squeezeplay >= 7.8")
+	end
 
 	--init lastInputType so selected item style is not shown on skin load
 	Framework.mostRecentInputType = "mouse"
@@ -670,8 +680,8 @@ function skin(self, s)
 
 	local CM_MENU_HEIGHT = 45
 
-	local TEXTINPUT_FONT_SIZE = 20
-	local TEXTINPUT_SELECTED_FONT_SIZE = 24
+	local TEXTINPUT_FONT_SIZE = 40 --justblair was 20
+	local TEXTINPUT_SELECTED_FONT_SIZE = 44 --was 24
 
 	local HELP_FONT_SIZE = 18
 	local UPDATE_SUBTEXT_SIZE = 20
@@ -1045,7 +1055,7 @@ function skin(self, s)
 	}
 
 	s.scrollbar = {
-		w = 42,
+		w = 42, -- was 42
 		border = 0,
 		padding = { 0, 0, 0, 0 },
 		horizontal = 0,
@@ -1098,8 +1108,8 @@ function skin(self, s)
 
 	-- text input
 	s.textinput = {
-		h = 36,
-		padding = { 6, 0, 6, 0 },
+		h = 72, --Justblair Old Value 36
+		padding = { 12, 0, 12, 0 }, --was 6
 		font = _boldfont(TEXTINPUT_FONT_SIZE),
 		cursorFont = _boldfont(TEXTINPUT_SELECTED_FONT_SIZE),
 		wheelFont = _boldfont(TEXTINPUT_FONT_SIZE),
@@ -1129,7 +1139,7 @@ function skin(self, s)
 	}
 
 	s.keyboard.key = {
-        	font = _boldfont(24),
+        	font = _boldfont(48), -- was 24
         	fg = { 0xDC, 0xDC, 0xDC },
         	align = 'center',
 		bgImg = keyMiddle,
@@ -1145,14 +1155,15 @@ function skin(self, s)
 	s.keyboard.key_bottom      = _uses(s.keyboard.key, { bgImg = keyBottom })
 	s.keyboard.key_bottomRight = _uses(s.keyboard.key, { bgImg = keyBottomRight })
 
+	-- was 18 --> 36
 	-- styles for keys that use smaller font 
-	s.keyboard.key_bottom_small      = _uses(s.keyboard.key_bottom, { font = _boldfont(18) } )
+	s.keyboard.key_bottom_small      = _uses(s.keyboard.key_bottom, { font = _boldfont(36) } )
 	s.keyboard.key_bottomRight_small = _uses(s.keyboard.key_bottomRight, { 
-			font = _boldfont(18), 
+			font = _boldfont(36), 
 			fg = { 0xe7, 0xe7, 0xe7 },
 	} )
-	s.keyboard.key_bottomLeft_small  = _uses(s.keyboard.key_bottomLeft, { font = _boldfont(18) } )
-	s.keyboard.key_left_small        = _uses(s.keyboard.key_left, { font = _boldfont(18) } )
+	s.keyboard.key_bottomLeft_small  = _uses(s.keyboard.key_bottomLeft, { font = _boldfont(36) } )
+	s.keyboard.key_left_small        = _uses(s.keyboard.key_left, { font = _boldfont(36) } )
 
 
 	s.keyboard.spacer_topLeft     = _uses(s.keyboard.key_topLeft)
@@ -1194,15 +1205,19 @@ function skin(self, s)
 			fg = { 0x00, 0xbe, 0xbe },
 			sh = { },
 			h = WH_FILL,
+			w = 156,
 			padding = { 0, 0, 0, 1 },
 		}),
-		icon = { hidden = 1 },
+		icon = { hidden = 1,  w = 156, h = 83 },
+			w = 156,
 	}
 
 	s.keyboard.doneDisabled =  _uses(s.keyboard.done, {
 		text = {
 			fg = { 0x66, 0x66, 0x66 },
-		}
+			w = 156,
+		},
+		w = 156,
 	})
 
 	s.keyboard.doneSpinny =  {
@@ -2374,9 +2389,9 @@ function skin(self, s)
 
 	s.button_keyboard_back = {
 		align = 'left',
-		w = 48,
-		h = 33,
-		padding = { 8, 0, 0, 0 },
+		w = 96, -- was 48
+		h = 66, -- was 33
+		padding = { 14, 0, 0, 0 }, --was 8
 		border = { 0, 2, 9, 5}, 
 		img = _loadImage(self, "Icons/icon_delete_tch_text_entry.png"),
 		bgImg = deleteKeyBackground,
@@ -2774,8 +2789,8 @@ function skin(self, s)
 	local NP_TRACK_FONT_SIZE = 28
 
 	local controlHeight = 76
-	local controlWidth = 90
-	local volumeBarWidth = 163 -- screenWidth - (transport controls + volume controls + dividers + border around volume bar)
+	local controlWidth = 83  -- was 90
+	local volumeBarWidth = 196 -- was 163 screenWidth - (transport controls + volume controls + dividers + border around volume bar)
 	local buttonPadding = 0
 
 	local _transportControlButton = {
@@ -2790,6 +2805,12 @@ function skin(self, s)
 		padding = 0,
 		img = touchToolbarKeyDivider,		
 	})
+
+	local _transportVolumeBorder = _uses(_transportControlButton, {
+		w = 90,
+		padding = { 88, 0, 0, 0 },
+		img = touchToolbarKeyDivider,
+	}) 
 
 	s.toolbar_spacer = _uses(_transportControlButton, {
 		w = WH_FILL,
@@ -2829,10 +2850,10 @@ function skin(self, s)
 			position   = _tracklayout.position,
 			border     = _tracklayout.border,
 			x          = _tracklayout.x,
-			y          = TITLE_HEIGHT + 32 + 100,
+			y          = TITLE_HEIGHT + 32 + 30,
 			h          = 32,
 			nptrack =  {
-				w          = screenWidth - _tracklayout.x - 10,
+				w          = screenWidth - _tracklayout.x ,
 				align      = _tracklayout.align,
 				lineHeight = _tracklayout.lineHeight,
 				fg         = _tracklayout.fg,
@@ -2862,7 +2883,7 @@ function skin(self, s)
 			position   = _tracklayout.position,
 			border     = _tracklayout.border,
 			x          = _tracklayout.x,
-			y          = TITLE_HEIGHT + 32 + 32 + 32 + 100,
+			y          = TITLE_HEIGHT + 32 + 32 + 32 + 110,
 			h          = 32,
 			npalbum = {
 				w          = screenWidth - _tracklayout.x - 10,
@@ -2910,7 +2931,7 @@ function skin(self, s)
 			div2 = _uses(_transportControlBorder),
 			div3 = _uses(_transportControlBorder),
 			div4 = _uses(_transportControlBorder),
-			div5 = _uses(_transportControlBorder),
+			div5 = _uses(_transportVolumeBorder),
 			div6 = _uses(_transportControlBorder),
 			div7 = _uses(_transportControlBorder),
 
@@ -2971,10 +2992,10 @@ function skin(self, s)
 				img = _loadImage(self, "Icons/icon_toolbar_thumbdown_dis.png"),
 			}),
 			love   = _uses(_transportControlButton, {
-				img = _loadImage(self, "Icons/icon_toolbar_fav.png"),
+				img = _loadImage(self, "Icons/icon_toolbar_love_on.png"),
 			}),
 			hate   = _uses(_transportControlButton, {
-				img = _loadImage(self, "Icons/icon_toolbar_fav_remove.png"),
+				img = _loadImage(self, "Icons/icon_toolbar_love_off.png"),
 			}),
 			fwdDisabled   = _uses(_transportControlButton, {
 				img = _loadImage(self, "Icons/icon_toolbar_ffwd_dis.png"),
@@ -2994,11 +3015,11 @@ function skin(self, s)
 		npprogress = {
 			position = LAYOUT_NONE,
 			x = 322,
-			y = TITLE_HEIGHT + 29 + 26 + 32 + 32 + 23 + 100,
+			y = TITLE_HEIGHT + 29 + 26 + 32 + 32 + 23 + 110,
 			padding = { 0, 10, 0, 0 },
 			order = { "elapsed", "slider", "remain" },
 			elapsed = {
-				w = 70,
+				w = 55,
 				align = 'left',
 				padding = { 0, 0, 4, 20 },
 				font = _boldfont(18),
@@ -3006,7 +3027,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			remain = {
-				w = 70,
+				w = 55,
 				align = 'right',
 				padding = { 4, 0, 0, 20 },
 				font = _boldfont(18),
@@ -3030,7 +3051,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			npprogressB = {
-				w = 280,
+				w = 340,
 				h = 50,
 				padding     = { 0, 0, 0, 0 },
 		                position = LAYOUT_SOUTH,

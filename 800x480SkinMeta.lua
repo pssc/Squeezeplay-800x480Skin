@@ -37,7 +37,7 @@ function defaultSettings(self)
 end
 
 function registerApplet(self)
-	jiveMain:registerSkin(self:string("800x480_SMALL_SKIN"), "800x480Skin", "skin")
+	jiveMain:registerSkin(self:string("TOUCH_800x480_SKIN"), "800x480Skin", "skin")
 end
 
 
