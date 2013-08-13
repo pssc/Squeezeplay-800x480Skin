@@ -86,7 +86,8 @@ end
 function param(self)
         return {
 		THUMB_SIZE = 40,
-		NOWPLAYING_MENU = false,
+		THUMB_SIZE_MENU = 40,	
+		NOWPLAYING_MENU = true, --changed by justblair
 		-- NOWPLAYING_TRACKINFO_LINES used in assisting scroll behavior animation on NP
 		-- 3 is for a three line track, artist, and album (e.g., SBtouch)
 		-- 2 is for a two line track, artist+album (e.g., SBradio, SBcontroller)
@@ -1055,7 +1056,7 @@ function skin(self, s)
 	}
 
 	s.scrollbar = {
-		w = 42, -- was 42
+		w = 46, -- was 42
 		border = 0,
 		padding = { 0, 0, 0, 0 },
 		horizontal = 0,
@@ -1199,6 +1200,7 @@ function skin(self, s)
 	})
 
 
+    -- w setting ingnored due to layout in keyboard code.
 	s.keyboard.done = {
 		text = _uses(s.keyboard.key_bottomRight_small, {
 			text = self:string("ENTER_SMALL"),
@@ -2641,6 +2643,9 @@ function skin(self, s)
 	s.hm_radios = _uses(_buttonicon, {
 		img = _loadImage(self, "IconsResized/icon_internet_radio" .. skinSuffix),
 	})
+	s.hm_myApps = _uses(_buttonicon, {
+		img = _loadImage(self, "IconsResized/icon_my_apps" .. skinSuffix),
+	})
 	s.hm_myMusic = _uses(_buttonicon, {
 		img = _loadImage(self, "IconsResized/icon_mymusic" .. skinSuffix),
 	})
@@ -2921,7 +2926,7 @@ function skin(self, s)
 		--transport controls
 		npcontrols = {
 			order = { 'rew', 'div1', 'play', 'div2', 'fwd', 'div3', 'repeatMode', 'div4', 'shuffleMode', 
-					'div5', 'volDown', 'div6', 'volSlider', 'div7', 'volUp' },
+				 'div5', 'volDown', 'div6', 'volSlider', 'div7', 'volUp' },
 			position = LAYOUT_SOUTH,
 			h = controlHeight,
 			w = WH_FILL,
