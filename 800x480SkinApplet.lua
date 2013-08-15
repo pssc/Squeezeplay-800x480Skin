@@ -5,7 +5,7 @@ applets.800x480Skin.800x480SkinApplet
 
 =head1 DESCRIPTION
 
-This applet implements a small print skin for 480x272 resolution
+This applet implements a small print skin for 800x480 resolution
 
 =head1 FUNCTIONS
 
@@ -1210,16 +1210,13 @@ function skin(self, s)
 			w = 156,
 			padding = { 0, 0, 0, 1 },
 		}),
-		icon = { hidden = 1,  w = 156, h = 83 },
-			w = 156,
+		icon = { hidden = 1 },
 	}
 
 	s.keyboard.doneDisabled =  _uses(s.keyboard.done, {
 		text = {
 			fg = { 0x66, 0x66, 0x66 },
-			w = 156,
-		},
-		w = 156,
+		}
 	})
 
 	s.keyboard.doneSpinny =  {
