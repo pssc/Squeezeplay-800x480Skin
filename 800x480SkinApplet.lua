@@ -115,7 +115,7 @@ function param(self)
 			},
 			{
 				style = 'nowplaying_art_only',
-				artworkSize = '470x262',
+				artworkSize = '480x480',
 				suppressTitlebar = 1,
 				text = self:string("ART_ONLY"),
 			},
@@ -2825,6 +2825,7 @@ function skin(self, s)
 		img = touchToolbarKeyDivider,		
 	})
 
+	-- This bit can be used to pad between controls and the volume slider, but I extended the slider instead, because I always want that in-between setting. ;)
 	local _transportVolumeBorder = _uses(_transportControlButton, {
 		w = 90,
 		padding = { 88, 0, 0, 0 },
@@ -2922,11 +2923,10 @@ function skin(self, s)
 		npartwork = {
 			w = 300,
 			position = LAYOUT_NONE,
-			x = 20,--8
+			x = 8,
 			y = TITLE_HEIGHT + 33,--25
 			align = "center",
 			h = 300,
-
 			artwork = {
 				w = 300,
 				align = "center",
@@ -3155,7 +3155,7 @@ function skin(self, s)
 		repeatMode      = _uses(s.nowplaying.npcontrols.repeatMode, { bgImg = keyMiddlePressed }),
 		shuffleAlbum    = _uses(s.nowplaying.npcontrols.shuffleAlbum, { bgImg = keyMiddlePressed }),
 		shuffleSong     = _uses(s.nowplaying.npcontrols.shuffleSong, { bgImg = keyMiddlePressed }),
-		shuffleMode      = _uses(s.nowplaying.npcontrols.shuffleMode, { bgImg = keyMiddlePressed }),
+		shuffleMode     = _uses(s.nowplaying.npcontrols.shuffleMode, { bgImg = keyMiddlePressed }),
 		shuffleOff      = _uses(s.nowplaying.npcontrols.shuffleOff, { bgImg = keyMiddlePressed }),
 		shuffleDisabled = _uses(s.nowplaying.npcontrols.shuffleOff, { bgImg = keyMiddlePressed }),
 		volDown = _uses(s.nowplaying.npcontrols.volDown, { bgImg = keyMiddlePressed }),
@@ -3182,17 +3182,14 @@ function skin(self, s)
 		npartistgroup    = { hidden = 1 },
 		npalbumgroup     = { hidden = 1 },
 		npartwork = {
-			w = 600,
 			position = LAYOUT_CENTER,
-			align = "center",
-			h = 500,
-			border = 0,
-			padding = 5,
+			     w = WH_FILL,
+			     h = WH_FILL,
 			artwork = {
-				w = 600,
-				border = 0,
-				padding = 0,
+			    align = "center",
 				img = false,
+			    w = WH_FILL,
+			    h = WH_FILL,
 			},
 		},
 
@@ -3227,33 +3224,55 @@ function skin(self, s)
 		npartwork = { hidden = 1 },
 
 		npvisu = { hidden = 1 },
-
+		
+		-- Progress bar
 		npprogress = {
-			x = 10,
+			position = LAYOUT_NONE,
+            x = 10,
 			y = 325,
-			w = screenWidth - 100,
+			padding = { 0, 10, 0, 0 },
+			order = { "elapsed", "slider", "remain" },
 			elapsed = {
-				w = 50,
+				w = 80,
+				align = 'left',
+				padding = { 0, 0, 4, 20 },
+				font = _boldfont(18),
+				fg = { 0xe7,0xe7, 0xe7 },
+				sh = { 0x37, 0x37, 0x37 },
 			},
 			remain = {
-				w = 50,
+				w = 80,
+				align = 'right',
+				padding = { 4, 0, 0, 20 },
+				font = _boldfont(18),
+				fg = { 0xe7,0xe7, 0xe7 },
+				sh = { 0x37, 0x37, 0x37 },
 			},
 			elapsedSmall = {
-				w = 50,
+				w = 80,
+				align = 'left',
+				padding = { 0, 0, 4, 20 },
+				font = _boldfont(18),
+				fg = { 0xe7,0xe7, 0xe7 },
+				sh = { 0x37, 0x37, 0x37 },
 			},
 			remainSmall = {
-				w = 50,
+				w = 80,
+				align = 'right',
+				padding = { 4, 0, 0, 20 },
+				font = _boldfont(18),
+				fg = { 0xe7,0xe7, 0xe7 },
+				sh = { 0x37, 0x37, 0x37 },
 			},
 			npprogressB = {
 				w = WH_FILL,
-				h = 25,
-				padding     = { 0, 0, 0, 18 },
-		                position = LAYOUT_SOUTH,
+				h = 50,
+				padding     = { 0, 0, 0, 0 },
+		        position = LAYOUT_SOUTH,
 				horizontal = 1,
 				bgImg = _songProgressBackground,
 				img = _songProgressBar,
 			},
-
 		},
 	
 		-- special style for when there shouldn't be a progress bar (e.g., internet radio streams)
@@ -3394,7 +3413,7 @@ function skin(self, s)
 			position = LAYOUT_NONE,
 			x = 0,
 			y = 2 * TITLE_HEIGHT + 4,
-			w = 800,
+			w = screenWidth,
 			h = 446 - (2 * TITLE_HEIGHT + 4 + 45),
 			border = { 0, 0, 0, 0 },
 			padding = { 0, 0, 0, 0 },
@@ -3403,7 +3422,7 @@ function skin(self, s)
 				position = LAYOUT_NONE,
 				x = 0,
 				y = 2 * TITLE_HEIGHT + 4,
-				w = 800,
+				w = screenWidth,
 				h = 446 - (2 * TITLE_HEIGHT + 4 + 45),
 				border = { 0, 0, 0, 0 },
 				padding = { 0, 0, 0, 0 },
@@ -3455,7 +3474,7 @@ function skin(self, s)
 				h = 413 - (TITLE_HEIGHT + 38 + 38),
 				border = { 0, 0, 0, 0 },
 				padding = { 0, 0, 0, 0 },
-				bgImg = _loadImage(self, "UNOFFICIAL/VUMeter/vu_analog_25seq_b.png"),-- b-> w
+				bgImg = _loadImage(self, "UNOFFICIAL/VUMeter/vu_analog_25seq_w.png"),
 			}
 		},
 	})
