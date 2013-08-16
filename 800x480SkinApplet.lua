@@ -3038,7 +3038,7 @@ function skin(self, s)
 			padding = { 0, 10, 0, 0 },-- 11
 			order = { "elapsed", "slider", "remain" },
 			elapsed = {
-				w = 80,--55
+				w = 65,--55
 				align = 'left',
 				padding = { 0, 0, 4, 20 },
 				font = _boldfont(18),
@@ -3046,7 +3046,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			remain = {
-				w = 80,--55
+				w = 65,--55
 				align = 'right',
 				padding = { 4, 0, 0, 20 },
 				font = _boldfont(18),
@@ -3054,7 +3054,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			elapsedSmall = {
-				w = 80,--70
+				w = 65,--70
 				align = 'left',
 				padding = { 0, 0, 4, 20 },
 				font = _boldfont(18),
@@ -3062,7 +3062,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			remainSmall = {
-				w = 80,--70
+				w = 65,--70
 				align = 'right',
 				padding = { 4, 0, 0, 20 },
 				font = _boldfont(18),
@@ -3228,12 +3228,13 @@ function skin(self, s)
 		-- Progress bar
 		npprogress = {
 			position = LAYOUT_NONE,
-            x = 10,
+                        x = 10,
 			y = 325,
+			w = screenWidth - 30,
 			padding = { 0, 10, 0, 0 },
 			order = { "elapsed", "slider", "remain" },
 			elapsed = {
-				w = 80,
+				w = 65,
 				align = 'left',
 				padding = { 0, 0, 4, 20 },
 				font = _boldfont(18),
@@ -3241,7 +3242,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			remain = {
-				w = 80,
+				w = 65,
 				align = 'right',
 				padding = { 4, 0, 0, 20 },
 				font = _boldfont(18),
@@ -3249,7 +3250,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			elapsedSmall = {
-				w = 80,
+				w = 65,
 				align = 'left',
 				padding = { 0, 0, 4, 20 },
 				font = _boldfont(18),
@@ -3257,7 +3258,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			remainSmall = {
-				w = 80,
+				w = 65,
 				align = 'right',
 				padding = { 4, 0, 0, 20 },
 				font = _boldfont(18),
@@ -3266,9 +3267,9 @@ function skin(self, s)
 			},
 			npprogressB = {
 				w = WH_FILL,
-				h = 50,
+				h = 65,
 				padding     = { 0, 0, 0, 0 },
-		        position = LAYOUT_SOUTH,
+		                position = LAYOUT_SOUTH,
 				horizontal = 1,
 				bgImg = _songProgressBackground,
 				img = _songProgressBar,
@@ -3282,7 +3283,6 @@ function skin(self, s)
 			x = 720,
 			y = TITLE_HEIGHT + 55,
 			elapsed = {
-				w = WH_FILL,
 				align = "left",
 				font = _boldfont(18),
 				fg = { 0xe7, 0xe7, 0xe7 },
