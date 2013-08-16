@@ -2807,7 +2807,7 @@ function skin(self, s)
 	local NP_ARTISTALBUM_FONT_SIZE = 30
 	local NP_TRACK_FONT_SIZE = 30 -- 28
 
-	local controlHeight = 76
+	local controlHeight = 72 -- was 76 fix grey on bottom...
 	local controlWidth = 83  -- was 90
 	local volumeBarWidth = 240 -- 196 -- was 163 screenWidth - (transport controls + volume controls + dividers + border around volume bar)
 	local buttonPadding = 0
