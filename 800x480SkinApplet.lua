@@ -3228,13 +3228,12 @@ function skin(self, s)
 		-- Progress bar
 		npprogress = {
 			position = LAYOUT_NONE,
-                        x = 10,
-			y = 325,
-			w = screenWidth - 30,
+			x = 50,
+			y = 300,
 			padding = { 0, 10, 0, 0 },
 			order = { "elapsed", "slider", "remain" },
 			elapsed = {
-				w = 65,
+				w = 80,
 				align = 'left',
 				padding = { 0, 0, 4, 20 },
 				font = _boldfont(18),
@@ -3242,7 +3241,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			remain = {
-				w = 65,
+				w = 80,
 				align = 'right',
 				padding = { 4, 0, 0, 20 },
 				font = _boldfont(18),
@@ -3250,7 +3249,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			elapsedSmall = {
-				w = 65,
+				w = 80,
 				align = 'left',
 				padding = { 0, 0, 4, 20 },
 				font = _boldfont(18),
@@ -3258,7 +3257,7 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			remainSmall = {
-				w = 65,
+				w = 80,
 				align = 'right',
 				padding = { 4, 0, 0, 20 },
 				font = _boldfont(18),
@@ -3266,8 +3265,8 @@ function skin(self, s)
 				sh = { 0x37, 0x37, 0x37 },
 			},
 			npprogressB = {
-				w = WH_FILL,
-				h = 65,
+				w = 540,
+				h = 50,
 				padding     = { 0, 0, 0, 0 },
 		                position = LAYOUT_SOUTH,
 				horizontal = 1,
