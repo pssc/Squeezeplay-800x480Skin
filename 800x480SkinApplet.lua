@@ -255,9 +255,11 @@ end
 -- skin
 -- The meta arranges for this to be called to skin the interface.
 function skin(self, s)
-	Framework:setVideoMode(800, 480, 0, false)
+	Framework:setVideoMode(800, 480, 0, jiveMain:isFullscreen())
 
 	local screenWidth, screenHeight = Framework:getScreenSize()
+
+	log:info(self," Skin Screen ",screenWidth,"x",screenHeight," Full:",jiveMain:isFullscreen())
 
 	-- Scale keyboard as it does its own layout for keys as it by passes any style bounds set in the skin
 	if Keyboard.setDefault then
@@ -3580,6 +3582,7 @@ function skin(self, s)
                 sh = TEXT_SH_COLOR,
         }
 
+	return s
 
 end
 
