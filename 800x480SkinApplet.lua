@@ -255,7 +255,7 @@ end
 -- skin
 -- The meta arranges for this to be called to skin the interface.
 function skin(self, s)
-	Framework:setVideoMode(800, 480, 0, jiveMain:isFullscreen())
+	Framework:setVideoMode(800, 480, 0, jiveMain:isFullscreen() and true or false ) -- FIXME null?
 
 	local screenWidth, screenHeight = Framework:getScreenSize()
 
