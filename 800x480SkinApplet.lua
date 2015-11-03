@@ -95,7 +95,7 @@ end
 function param(self)
         return {
 		THUMB_SIZE = 40,
-		THUMB_SIZE_MENU = 40,	
+		--THUMB_SIZE_MENU = 40,
 		NOWPLAYING_MENU = true, --changed by justblair
 		-- NOWPLAYING_TRACKINFO_LINES used in assisting scroll behavior animation on NP
 		-- 3 is for a three line track, artist, and album (e.g., SBtouch)
@@ -295,7 +295,7 @@ function skin(self, s)
         local helpTextBackground  = _loadImageTile(self, imgpath .. "Titlebar/tbar_dropdwn_bkrgd.png")
 
 
-	local nocturneWallpaper = _loadImageTile(self, "applets/SetupWallpaper/wallpaper/fab4_nocturne.png")
+	local nocturneWallpaper = _loadImageTile(self, "applets/SetupWallpaper/wallpaper/800x480_nocturne.png")
 
 	--FIXME, _r asset here doesn't work...it's supposed to have a fadeout effect and it doesn't appear on screen
 	local fiveItemBox             = _loadHTile(self, {
