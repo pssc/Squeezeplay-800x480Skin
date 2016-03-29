@@ -40,6 +40,11 @@ function registerApplet(self)
 	jiveMain:registerSkin(self:string("TOUCH_800x480_SKIN"), "800x480Skin", "skin")
 end
 
+function configureApplet(self)
+	appletManager:callService("addVUMeter","analog",self:string("vu_analog_b_standard"),"applets/800x480Skin/images/UNOFFICIAL/VUMeter/336x156_f25_vu_analog_b_standard.png")
+	appletManager:callService("addVUMeter","analog",self:string("vu_analog_w_standard"),"applets/800x480Skin/images/UNOFFICIAL/VUMeter/400x256_f25_vu_analog_w_standard.png")
+end
+
 
 --[[
 

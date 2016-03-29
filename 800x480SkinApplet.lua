@@ -5,7 +5,7 @@ applets.800x480Skin.800x480SkinApplet
 
 =head1 DESCRIPTION
 
-This applet implements a small print skin for 800x480 resolution
+This applet implements a small print/touch skin for 800x480 resolution
 
 Redesigned from WQVGAsmallSkin by Andy Davison.
 
@@ -13,8 +13,8 @@ Built upon the work of 3guk, Tarkan Akdam and Justblair.
 
 Version 1.10 (10th April 2012) birdslikewires.co.uk
 
-15/08/2013 Updated to support Keyboard Scaling pssc
- 	       Merge JogglerSkin and WVGAsmall Skin.
+15/08/2013	Updated to support Keyboard Scaling pssc
+		Merge JogglerSkin and WVGAsmall Skin.
 
 =head1 FUNCTIONS
 
@@ -96,7 +96,7 @@ function param(self)
         return {
 		THUMB_SIZE = 40,
 		--THUMB_SIZE_MENU = 40,
-		NOWPLAYING_MENU = true, --changed by justblair
+		NOWPLAYING_MENU = true, --changed by justblair FIXME testing on
 		-- NOWPLAYING_TRACKINFO_LINES used in assisting scroll behavior animation on NP
 		-- 3 is for a three line track, artist, and album (e.g., SBtouch)
 		-- 2 is for a two line track, artist+album (e.g., SBradio, SBcontroller)
@@ -121,24 +121,35 @@ function param(self)
 			},
 			{
 				style = 'nowplaying_text_only',
-				artworkSize = '300x300',
+				--artworkSize = '300x300',
 				text = self:string("TEXT_ONLY"),
 			},
 			{
 				style = 'nowplaying_spectrum_text',
-				artworkSize = '300x300',
+				--artworkSize = '300x300',
 				localPlayerOnly = 1,
 				text = self:string("SPECTRUM_ANALYZER"),
 			},
 			{
 				style = 'nowplaying_vuanalog_text',
-				artworkSize = '300x300',
+				--artworkSize = '300x300',
 				localPlayerOnly = 1,
 				text = self:string("ANALOG_VU_METER"),
 			},
 		},
+
+			--[[
+			--experimental add.... FIXME
+			{
+				style = 'nowplaying_vumeter_text',
+				--artworkSize = '300x300',
+				localPlayerOnly = 1,
+				text = self:string("VU_METER"),
+			},
+			--]]
         }
 end
+
 
 local function _loadImage(self, file)
 	return Surface:loadImage(imgpath .. file)
@@ -254,10 +265,14 @@ end
 
 -- skin
 -- The meta arranges for this to be called to skin the interface.
-function skin(self, s)
-	Framework:setVideoMode(800, 480, 0, jiveMain:isFullscreen() and true or false ) -- FIXME null?
-
-	local screenWidth, screenHeight = Framework:getScreenSize()
+function skin(self, s, reload, useDefaultSize, dx,dy)
+	if not dx then
+		dx,dy = 800,480
+	end
+	local screenWidth, screenHeight = dx, dy
+	if not useDefaultSize then
+	                screenWidth, screenHeight = Framework:getScreenSize()
+	end
 
 	log:info(self," Skin Screen ",screenWidth,"x",screenHeight," Full:",jiveMain:isFullscreen())
 
@@ -3202,25 +3217,25 @@ function skin(self, s)
 
 	s.nowplaying_text_only = _uses(s.nowplaying, {
 		nptitle = { 
-            x = 40,
-            y = TITLE_HEIGHT + 50,
-            nptrack = {
-                w = screenWidth - 65,
-            },
+			x = 40,
+			y = TITLE_HEIGHT + 50,
+			nptrack = {
+				w = screenWidth - 65,
+			},
 		},
 		npartistgroup = { 
-            x = 40,
-            y = TITLE_HEIGHT + 50 + 65,
-            npartist =  {
-                w = screenWidth - 65,
-            },
+			x = 40,
+			y = TITLE_HEIGHT + 50 + 65,
+			npartist =  {
+				w = screenWidth - 65,
+			},
 		},
 		npalbumgroup = { 
-            x = 40,
-            y = TITLE_HEIGHT + 50 + 60 + 55,
-                npalbum =  {
-                    w = screenWidth - 65,
-            },
+			x = 40,
+			y = TITLE_HEIGHT + 50 + 60 + 55,
+			npalbum =  {
+				w = screenWidth - 65,
+			},
 		},
 
 		npartwork = { hidden = 1 },
@@ -3336,7 +3351,7 @@ function skin(self, s)
 			padding = { 20, 14, 5, 5 },
 			nptrack = {
 				align = "center",
-	            w = screenWidth - 179,
+				w = screenWidth - 179,
 			},
 		},
 
@@ -3455,6 +3470,8 @@ function skin(self, s)
 		},
 	})
 
+	local avum = appletManager:callService("getVUMeter","analog")
+	avum = avum and avum.image or _loadImage(self,"UNOFFICIAL/VUMeter/336x156_f25_vu_analog_b_standard.png")
 	-- Visualizer: Analog VU Meter
 	s.nowplaying_vuanalog_text = _uses(s.nowplaying_visualizer_common, {
 		npvisu = {
@@ -3462,20 +3479,26 @@ function skin(self, s)
 			position = LAYOUT_NONE,
 			x = 0,
 			y = TITLE_HEIGHT + 63,
-			w = 800,
-			h = 413 - (TITLE_HEIGHT + 38 + 38),
+			w = screenWidth,
+			--h = 446 - (2 * TITLE_HEIGHT + 4 + 45),
+			--h = 480 - (TITLE_HEIGHT + 60), -- NP hight?
+			--h = 453,
+			h = 280,
 			border = { 0, 0, 0, 0 },
 			padding = { 0, 0, 0, 0 },
 
 			vumeter_analog = {
 				position = LAYOUT_NONE,
+				-- x offset in img... only in non resized
 				x = 0,
 				y = TITLE_HEIGHT + 63,
-				w = 800,
-				h = 413 - (TITLE_HEIGHT + 38 + 38),
-				border = { 0, 0, 0, 0 },
+				h = 280,
+				w = screenWidth,
+				-- image is clipped and goes to buttom in classic unresized
+				-- border = { 0, 0, 0, 0 },
 				padding = { 0, 0, 0, 0 },
-				bgImg = _loadImage(self, "UNOFFICIAL/VUMeter/vu_analog_25seq_w.png"),
+				resize = "analog",
+				bgImg = avum,
 			}
 		},
 	})
@@ -3581,6 +3604,16 @@ function skin(self, s)
                 fg = TEXT_COLOR,
                 sh = TEXT_SH_COLOR,
         }
+
+	if useDefaultSize then
+		Framework:setVideoMode(screenWidth,screenHeight, 0, jiveMain:isFullscreen() and true or false)
+	end
+
+        screenWidth, screenHeight = Framework:getScreenSize()
+        if (screenWidth ~= dx or screenHeight ~= dy) and useDefaultSize then
+                log:warn("skin res but...",screenWidth,"x",screenHeight, " rather than ",dx,"x",dy)
+                self:skin(s,screenWidth,screenHeight)
+        end
 
 	return s
 
